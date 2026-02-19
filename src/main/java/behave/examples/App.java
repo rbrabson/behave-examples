@@ -30,7 +30,7 @@ public class App {
         Node driveToTarget = new Action(driveTrain::moveToTarget);
         Node scoreArtifact = new Action(shooter::shoot);
         Node pickUpArtifact = new Action(intake::intakeArtifact);
-        Node readyToShoot = new Condition(shooter::readyToShoot);
+        Node readyToShoot = new Condition(shooter::isReadyToShoot);
 
         Node pickupThreeArtifacts = new RepeatN(pickUpArtifact, 3);
         Node prepareToShoot = new WhileFailure(readyToShoot);

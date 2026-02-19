@@ -37,14 +37,6 @@ public class Shooter {
         return hasArtifact() && turret.isAtTarget() && flywheel.isAtTargetSpeed();
     }
 
-    public Status readyToShoot() {
-        if (isReadyToShoot()) {
-            return Status.SUCCESS;
-        } else {
-            return Status.FAILURE;
-        }
-    }
-
     public Status shoot() {
         if (isReadyToShoot()) {
             artifactCount--;

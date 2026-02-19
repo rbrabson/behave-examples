@@ -17,12 +17,13 @@
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
-        <!-- Dependency for behave-java: now resolved from local Maven repository -->
+        <!-- Dependency for behave-java: now restored -->
         <dependency>
             <groupId>behave</groupId>
             <artifactId>behave-java</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
+        <!-- behave-java dependency removed: missing artifact error -->
     </dependencies>
     <build>
         <plugins>
