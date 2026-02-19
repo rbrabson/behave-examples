@@ -16,6 +16,7 @@ public class Flywheel {
 
     public void updateCurrentSpeed(double currentSpeed) {
         this.currentSpeed = currentSpeed;
+        System.out.println("Flywheel at the target speed!");
     }
 
     public boolean isAtTargetSpeed() {

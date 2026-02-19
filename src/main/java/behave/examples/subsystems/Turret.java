@@ -16,6 +16,7 @@ public class Turret {
 
     public void updateCurrentAngle(double currentAngle) {
         this.currentAngle = currentAngle;
+        System.out.println("Moved turret to the target angle!");
     }
 
     public boolean isAtTarget() {

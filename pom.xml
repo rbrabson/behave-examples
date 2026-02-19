@@ -21,7 +21,7 @@
         <dependency>
             <groupId>behave</groupId>
             <artifactId>behave-java</artifactId>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
         </dependency>
         <!-- behave-java dependency removed: missing artifact error -->
     </dependencies>

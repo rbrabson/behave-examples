@@ -21,6 +21,7 @@ public class DriveTrain {
 
     public void updateCurrentPose(Pose currentPose) {
         this.currentPose = currentPose;
+        System.out.println("Drove to target position!");
     }
 
     public boolean isAtTarget() {

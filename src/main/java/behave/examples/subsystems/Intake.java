@@ -9,6 +9,7 @@ public class Intake {
     public Status intakeArtifact() {
         if (numOfArtifacts < MAX_ARTIFACTS) {
             numOfArtifacts++;
+            System.out.println("Picked up an artifact!");
             return Status.SUCCESS;
         } else {
             return Status.FAILURE;
