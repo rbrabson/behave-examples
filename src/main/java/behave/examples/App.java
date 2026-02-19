@@ -58,6 +58,7 @@ public class App {
                 if (removed == Status.SUCCESS) {
                     Status added = shooter.addArtifact();
                     if (added == Status.SUCCESS) {
+                        System.out.println("Transferred artifact from intake to shooter.");
                         return Status.SUCCESS;
                     }
                 }
@@ -85,16 +86,20 @@ public class App {
         shooter.spinUp(3000);
 
         BehaviorTree bt = new BehaviorTree(scoreSequence);
-        System.out.println("Preparing to start, starting starting status: " + bt.status());
+        System.out.println("Preparing to start, starting starting status: " + bt.status() + "\n");
+        boolean movedToTarget = false;
         while (bt.tick() == Status.RUNNING) {
             // Simulate sensor updates. In a real application, these would come from
             // hardware sensors and would likely be handled in a separate thread or through
             // event listeners.
-            driveTrain.updateCurrentPose(new Pose(5, 5, 0));
-            shooter.turret.updateCurrentAngle(45);
-            shooter.flywheel.updateCurrentSpeed(3000);
+            if (!movedToTarget && pickupThreeArtifacts.status() != Status.RUNNING) {
+                driveTrain.updateCurrentPose(new Pose(5, 5, 0));
+                shooter.turret.updateCurrentAngle(45);
+                shooter.flywheel.updateCurrentSpeed(3000);
+                movedToTarget = true;
+            }
         }
-        System.out.println("Scoring complete! Final status: " + bt.status());
+        System.out.println("\nScoring complete! Final status: " + bt.status());
     }
 
     // Main method to run the application

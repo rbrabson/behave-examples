@@ -16,11 +16,14 @@ public class Flywheel {
 
     public void updateCurrentSpeed(double currentSpeed) {
         this.currentSpeed = currentSpeed;
-        System.out.println("Flywheel at the target speed!");
     }
 
     public boolean isAtTargetSpeed() {
-        return this.currentSpeed == targetSpeed;
+        boolean atTarget = this.currentSpeed == targetSpeed;
+        if (atTarget) {
+            System.out.println("Flywheel at the target speed!");
+        }
+        return atTarget;
     }
 
     public Status spinUp() {

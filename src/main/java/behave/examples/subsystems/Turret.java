@@ -16,11 +16,14 @@ public class Turret {
 
     public void updateCurrentAngle(double currentAngle) {
         this.currentAngle = currentAngle;
-        System.out.println("Moved turret to the target angle!");
     }
 
     public boolean isAtTarget() {
-        return this.currentAngle == targetAngle;
+        boolean atTarget = this.currentAngle == targetAngle;
+        if (atTarget) {
+            System.out.println("Turret at target angle!");
+        }
+        return atTarget;
     }
 
     public Status moveToTarget() {
