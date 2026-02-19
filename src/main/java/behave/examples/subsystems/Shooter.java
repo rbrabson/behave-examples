@@ -39,6 +39,7 @@ public class Shooter {
 
     public Status shoot() {
         if (isReadyToShoot()) {
+            System.out.println("Shooting artifact!");
             artifactCount--;
             return Status.SUCCESS;
         } else {

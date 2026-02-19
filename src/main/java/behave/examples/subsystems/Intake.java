@@ -31,4 +31,8 @@ public class Intake {
     public boolean isEmpty() {
         return numOfArtifacts == 0;
     }
+
+    public int getArtifactCount() {
+        return numOfArtifacts;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 // Behavior Tree imports
 import behave.Action;
+import behave.AlwaysSuccess;
 import behave.BehaviorTree;
 import behave.Condition;
 import behave.Node;
@@ -12,7 +13,7 @@ import behave.RepeatN;
 import behave.Sequence;
 import behave.Status;
 import behave.WhileFailure;
-
+import behave.WhileSuccess;
 // Simulated subsystem imports
 import behave.examples.subsystems.DriveTrain;
 import behave.examples.subsystems.Flywheel;
@@ -64,8 +65,17 @@ public class App {
             return Status.FAILURE;
         });
 
-        Node scoreSequence = new Sequence(
-                Arrays.asList(pickupThreeArtifacts, prepareToScore, transferArtifact, scoreArtifact));
+        // Score all artifacts. This transfers artifacts from the intake to the shooter
+        // and shoots them until there are no more artifacts to shoot. This uses the
+        // AlwaysSuccess decorator to ensure that the behavior continues even if there
+        // are no artifacts left to shoot, and the WhileSuccess decorator to keep trying
+        // to score as long as there are artifacts in the intake.
+        Node scoreAllArtifacts = new AlwaysSuccess(
+                new WhileSuccess(new Sequence(Arrays.asList(transferArtifact, scoreArtifact))));
+
+        // The main sequence of the behavior tree. It first picks up three artifacts,
+        // then prepares to shoot, and finally scores all artifacts.
+        Node scoreSequence = new Sequence(Arrays.asList(pickupThreeArtifacts, prepareToScore, scoreAllArtifacts));
 
         // Set target position for the subsystems to achieve before starting the
         // behavior tree. In a real application, these would be based on sensor inputs
