@@ -17,11 +17,13 @@
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
-        <!-- Use behave-java from local Maven repository -->
+        <!-- Use behave-java from local JAR in lib directory -->
         <dependency>
-            <groupId>behave</groupId>
+            <groupId>org.behave</groupId>
             <artifactId>behave-java</artifactId>
-            <version>1.0.4</version>
+            <version>1.0.7</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/behave-java-1.0.7.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
@@ -32,6 +34,19 @@
                 <version>3.2.5</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <mainClass>behave.examples.App</mainClass>
+                    <classpathScope>compile</classpathScope>
+                    <additionalClasspathElements>
+                        <!-- No additionalClasspathElement needed for behave-java-1.0.7 as it is now
+                        a standard Maven dependency -->
+                    </additionalClasspathElements>
                 </configuration>
             </plugin>
         </plugins>

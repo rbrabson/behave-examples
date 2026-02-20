@@ -34,11 +34,11 @@ public class Shooter {
     }
 
     public boolean isReadyToShoot() {
-        return hasArtifact() && turret.isAtTarget() && flywheel.isAtTargetSpeed();
+        return turret.isAtTarget() && flywheel.isAtTargetSpeed();
     }
 
     public Status shoot() {
-        if (isReadyToShoot()) {
+        if (isReadyToShoot() && hasArtifact()) {
             System.out.println("Shooting artifact!");
             artifactCount--;
             return Status.SUCCESS;
