@@ -23,12 +23,16 @@ import behave.examples.subsystems.Pose;
 import behave.examples.subsystems.Shooter;
 import behave.examples.subsystems.Turret;
 
+// Simulated mediator import
+import behave.mediators.ScoreMediator;
+
 // Example of a robot application using a behavior tree to coordinate subsystems for a scoring task.
 public class App {
 
     private DriveTrain driveTrain;
     private Intake intake;
     private Shooter shooter;
+    private ScoreMediator scoreMediator;
 
     // In a real application, subsystems would be initialized with hardware
     // interfaces and configuration. For this example, we are simulating their
@@ -37,6 +41,7 @@ public class App {
         driveTrain = new DriveTrain();
         intake = new Intake();
         shooter = new Shooter(new Turret(), new Flywheel());
+        scoreMediator = new ScoreMediator(intake, shooter);
     }
 
     // This method defines and runs the behavior tree for the scoring task.
@@ -49,19 +54,7 @@ public class App {
         Node pickupThreeArtifacts = new RepeatN(pickUpArtifact, 3);
         Node prepareToShoot = new WhileFailure(readyToShoot);
         Node prepareToScore = new Parallel(Arrays.asList(driveToTarget, prepareToShoot));
-
-        // Action node to transfer artifact from Intake to Shooter. This can be defined
-        // in-line since it's a simple sequence of operations, or could be extracted
-        // into its own method for clarity.
-        Node transferArtifact = new Action(() -> {
-            if (!intake.isEmpty()) {
-                if (intake.removeArtifact() == Status.SUCCESS && shooter.addArtifact() == Status.SUCCESS) {
-                    System.out.println("Transferred artifact from intake to shooter.");
-                    return Status.SUCCESS;
-                }
-            }
-            return Status.FAILURE;
-        });
+        Node transferArtifact = new Action(scoreMediator::transferArtifact);
 
         // Score all artifacts. This transfers artifacts from the intake to the shooter
         // and shoots them until there are no more artifacts to shoot. This uses the
