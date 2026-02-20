@@ -1,4 +1,4 @@
-package behave.mediators;
+package behave.examples.mediators;
 
 import behave.examples.subsystems.Shooter;
 import behave.Status;

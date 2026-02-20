@@ -14,7 +14,7 @@ import behave.Sequence;
 import behave.Status;
 import behave.WhileFailure;
 import behave.WhileSuccess;
-
+import behave.examples.mediators.ScoreMediator;
 // Simulated subsystem imports
 import behave.examples.subsystems.DriveTrain;
 import behave.examples.subsystems.Flywheel;
@@ -22,9 +22,6 @@ import behave.examples.subsystems.Intake;
 import behave.examples.subsystems.Pose;
 import behave.examples.subsystems.Shooter;
 import behave.examples.subsystems.Turret;
-
-// Simulated mediator import
-import behave.mediators.ScoreMediator;
 
 // Example of a robot application using a behavior tree to coordinate subsystems for a scoring task.
 public class App {
