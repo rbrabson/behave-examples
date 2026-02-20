@@ -26,10 +26,10 @@ import behave.examples.subsystems.Turret;
 // Example of a robot application using a behavior tree to coordinate subsystems for a scoring task.
 public class App {
 
-    private DriveTrain driveTrain;
-    private Intake intake;
-    private Shooter shooter;
-    private ScoreMediator scoreMediator;
+    private final DriveTrain driveTrain;
+    private final Intake intake;
+    private final Shooter shooter;
+    private final ScoreMediator scoreMediator;
 
     // In a real application, subsystems would be initialized with hardware
     // interfaces and configuration. For this example, we are simulating their
