@@ -24,6 +24,9 @@ public class DriveTrain {
     }
 
     public boolean isAtTarget() {
+        if (targetPose == null || currentPose == null) {
+            return false;
+        }
         return this.currentPose.getX() == targetPose.getX() && this.currentPose.getY() == targetPose.getY()
                 && this.currentPose.getTheta() == targetPose.getTheta();
     }

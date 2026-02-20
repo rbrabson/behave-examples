@@ -50,18 +50,31 @@ public class App {
         Node prepareToShoot = new WhileFailure(readyToShoot);
         Node prepareToScore = new Parallel(Arrays.asList(driveToTarget, prepareToShoot));
 
+        // Set target position for the subsystems to achieve before starting the
+        // behavior tree. In a real application, these would be based on sensor inputs
+        // or a predefined strategy.
+        driveTrain.driveTo(5, 5, 0);
+        shooter.rotateTo(45);
+        shooter.spinUp(3000);
+        while (prepareToScore.tick() == Status.RUNNING) {
+            // Simulate sensor updates for the drive train and shooter subsystems.
+            // In a real application, these would come from hardware sensors and would
+            // likely be handled in a separate thread or through event listeners.
+            driveTrain.updateCurrentPose(new Pose(5, 5, 0));
+            shooter.turret.updateCurrentAngle(45);
+            shooter.flywheel.updateCurrentSpeed(3000);
+        }
+        System.out.println("------------------------------------------\n");
+        prepareToScore.reset(); // Reset the prepareToScore node to run it again for the scoring phase.
+
         // Action node to transfer artifact from Intake to Shooter. This can be defined
         // in-line since it's a simple sequence of operations, or could be extracted
         // into its own method for clarity.
         Node transferArtifact = new Action(() -> {
             if (!intake.isEmpty()) {
-                Status removed = intake.removeArtifact();
-                if (removed == Status.SUCCESS) {
-                    Status added = shooter.addArtifact();
-                    if (added == Status.SUCCESS) {
-                        System.out.println("Transferred artifact from intake to shooter.");
-                        return Status.SUCCESS;
-                    }
+                if (intake.removeArtifact() == Status.SUCCESS && shooter.addArtifact() == Status.SUCCESS) {
+                    System.out.println("Transferred artifact from intake to shooter.");
+                    return Status.SUCCESS;
                 }
             }
             return Status.FAILURE;
