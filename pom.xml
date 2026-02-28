@@ -21,9 +21,9 @@
         <dependency>
             <groupId>org.behave</groupId>
             <artifactId>behave-java</artifactId>
-            <version>1.0.7</version>
+            <version>1.0.9</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/behave-java-1.0.7.jar</systemPath>
+            <systemPath>${project.basedir}/lib/behave-java-1.0.9.jar</systemPath>
         </dependency>
     </dependencies>
     <build>
